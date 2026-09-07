@@ -1,0 +1,32 @@
+/* Motion-only overrides. The static composition remains the fallback. */
+.services--interactive .service-item { cursor: pointer; }
+.services--interactive .service-item:focus-visible { outline: 2px solid var(--color-yellow); outline-offset: 4px; }
+.services--interactive .service-item__dot.is-passed { background: var(--color-yellow); }
+.services--interactive .service-item--passed .service-item__number { color: var(--color-yellow); }
+.services--reduced .service-item { cursor: default; }
+.services--reduced .service-item .service-item__description {
+  display: block;
+  height: auto;
+  max-height: none;
+  opacity: 1;
+  transform: none;
+}
+.services--interactive .services__axis-progress { height: 100%; background: var(--color-yellow); transform-origin: top; }
+@media (prefers-reduced-motion: no-preference) {
+  .header--scrolled .site-header__inner { box-shadow: var(--shadow-soft), inset 0 0 0 1.5px rgba(255,255,255,.17); }
+  .site-footer a:hover { color: var(--color-yellow); }
+  @media (hover: hover) and (pointer: fine) {
+    .btn { transition: scale .25s ease !important; }
+    .btn:hover { scale: 1.03; }
+    .btn svg { transition: translate .25s ease !important; }
+    .btn[href^="#"]:hover svg { translate: 4px -4px; }
+    .value-card { transition: translate .25s ease !important; }
+    .value-card:hover { translate: 0 -3px; }
+    .value-card__icon { transition: scale .3s ease !important; }
+    .value-card:hover .value-card__icon { scale: 1.05; }
+    .project-card img, .project-card__reference { transition: scale .5s ease !important; }
+    .project-card:hover img, .project-card:hover .project-card__reference { scale: 1.02; filter: none; }
+    .project-card__content { transition: translate .5s ease !important; }
+    .project-card:hover .project-card__content { translate: 0 -3px; }
+  }
+}

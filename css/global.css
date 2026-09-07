@@ -26,7 +26,44 @@
 }
 
 html {
-  scroll-behavior: auto;
+  scroll-behavior: smooth;
+}
+
+@media (forced-colors: none) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-yellow) transparent;
+  }
+
+  @supports selector(::-webkit-scrollbar) {
+    html {
+      scrollbar-width: auto;
+      scrollbar-color: auto;
+    }
+  }
+
+  html::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  html::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  html::-webkit-scrollbar-thumb {
+    border: 0;
+    border-radius: 0;
+    background: var(--color-yellow);
+  }
+
+  html::-webkit-scrollbar-thumb:hover {
+    background: var(--color-yellow-soft);
+  }
+
+  html::-webkit-scrollbar-corner {
+    background: transparent;
+  }
 }
 
 body {
