@@ -4,7 +4,6 @@
   z-index: 50;
   width: 100%;
   padding-inline: var(--page-gutter);
-  transition: filter 220ms var(--ease), transform 220ms var(--ease);
 }
 
 .site-header.is-scrolled {
@@ -55,7 +54,6 @@
   content: "";
   opacity: 0;
   transform: scaleX(0.4);
-  transition: opacity 180ms var(--ease), transform 180ms var(--ease);
 }
 
 .site-nav__link:hover,
@@ -276,7 +274,6 @@
   height: 19px;
   border-radius: 50%;
   background: var(--color-black);
-  transition: background-color 240ms var(--ease), transform 240ms var(--ease);
 }
 
 .service-item__number,
@@ -287,7 +284,6 @@
   font-weight: 800;
   line-height: 0.95;
   text-transform: uppercase;
-  transition: color 240ms var(--ease), font-size 240ms var(--ease), transform 240ms var(--ease);
 }
 
 .service-item__divider {
@@ -297,7 +293,6 @@
   border-radius: 999px;
   background: var(--color-yellow);
   opacity: 0;
-  transition: height 260ms var(--ease), opacity 260ms var(--ease);
 }
 
 .service-item__body {
@@ -317,7 +312,6 @@
   line-height: 1.22;
   opacity: 0;
   transform: translateY(-8px);
-  transition: max-height 280ms var(--ease), opacity 220ms var(--ease), transform 220ms var(--ease);
 }
 
 .service-item--active {
@@ -433,7 +427,6 @@
   background: var(--color-white);
   padding: clamp(28px, 2vw, 38px);
   box-shadow: var(--shadow-card);
-  transition: transform 220ms var(--ease), box-shadow 220ms var(--ease);
 }
 
 .value-card:hover {
@@ -526,7 +519,6 @@
   object-fit: cover;
   transform: scale(1.04);
   transform-origin: center;
-  transition: filter 420ms var(--ease), transform 420ms var(--ease);
 }
 
 .project-card::after {
