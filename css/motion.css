@@ -1,4 +1,9 @@
 /* Motion-only overrides. The static composition remains the fallback. */
+/* Clip sideways overflow without creating a scroll container that blocks sticky. */
+@supports (overflow: clip) {
+  body { overflow-x: clip; }
+}
+.services-scroll-track { position: relative; }
 .services--interactive .service-item { cursor: pointer; }
 .services--interactive .service-item:focus-visible { outline: 2px solid var(--color-yellow); outline-offset: 4px; }
 .services--interactive .service-item__dot.is-passed { background: var(--color-yellow); }

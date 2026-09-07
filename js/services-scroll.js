@@ -21,8 +21,8 @@
     if (hasGSAP) gsap.registerPlugin(ScrollTrigger);
     let active = 0;
     let transition;
-    let pinned = false;
     let trigger;
+    let scrollTrack;
     section.classList.add('services--interactive');
     const targets = items.flatMap((item, i) => [item, numbers[i], titles[i], item.querySelector('.service-item__divider'), descriptions[i]]);
     const animatedProperties = 'height,minHeight,fontSize,lineHeight,color,backgroundColor,opacity,display,maxHeight,overflow,transform';
@@ -93,8 +93,9 @@
       item.setAttribute('aria-label', titles[index].textContent.trim());
       function activate() {
         if (reduced.matches) return;
-        if (pinned && trigger) {
-          window.scrollTo({ top: trigger.start + (trigger.end - trigger.start) * ((index + 0.1) / items.length), behavior: 'instant' });
+        if (scrollTrack && trigger) {
+          window.scrollTo({ top: trigger.start + (trigger.end - trigger.start) * ((index + 0.5) / items.length), behavior: 'instant' });
+          ScrollTrigger.update();
         }
         select(index);
       }
@@ -110,47 +111,58 @@
       mm.add('(min-width: 901px) and (prefers-reduced-motion: no-preference)', () => {
         section.classList.remove('services--reduced');
         let resizeTimer;
-        const pinContext = gsap.context(() => {});
+        const scrollContext = gsap.context(() => {});
         function setup() {
           transition?.progress(1);
-          pinContext.revert();
+          scrollContext.revert();
+          if (scrollTrack) { scrollTrack.replaceWith(section); scrollTrack = null; }
           trigger = null;
-          pinned = false;
           section.style.removeProperty('height');
-          // Measure every existing state, reserving the largest natural height only while pinned.
+          // Keep the document height stable when descriptions change.
           const previous = active;
           let height = 0;
           items.forEach((_, i) => { select(i, false); height = Math.max(height, section.getBoundingClientRect().height); });
           select(previous, false);
-          // Section padding already provides part of the clearance under the fixed header.
           const header = document.querySelector('.site-header');
           const headerBottom = header ? header.getBoundingClientRect().bottom + 16 : 0;
-          const pinTop = Math.max(0, headerBottom - parseFloat(getComputedStyle(section).paddingTop));
-          if (height > window.innerHeight - pinTop) return;
-          pinned = true;
-          pinContext.add(() => {
+          const stickyTop = Math.max(0, headerBottom - parseFloat(getComputedStyle(section).paddingTop));
+          const canStick = height <= window.innerHeight - stickyTop;
+          const distance = Math.min(1800, window.innerHeight * 2.2);
+          if (canStick) {
+            // Native sticky stays inside its track, including during reverse scrolling.
+            scrollTrack = document.createElement('div');
+            scrollTrack.className = 'services-scroll-track';
+            scrollTrack.style.height = `${height + distance}px`;
+            section.before(scrollTrack);
+            scrollTrack.append(section);
+          }
+          scrollContext.add(() => {
             gsap.set(section, { height });
-            // Numeric scrub needs an attached animation; callbacks alone aren't smoothed.
-            const playhead = { progress: 0 };
-            const animation = gsap.to(playhead, { progress: 1, duration: 1, ease: 'none', paused: true,
-              onUpdate: () => select(Math.min(items.length - 1, Math.floor(playhead.progress * items.length)))
+            if (canStick) gsap.set(section, { position: 'sticky', top: stickyTop });
+            // The row transition already smooths the change. A second scrubbed
+            // playhead would replay intermediate selections after clicks or fast scrolling.
+            const syncSelection = self => select(Math.min(items.length - 1, Math.floor(self.progress * items.length)));
+            trigger = ScrollTrigger.create({ trigger: scrollTrack || section,
+              start: canStick ? `top ${stickyTop}` : 'top 65%',
+              end: canStick ? `+=${distance}` : 'bottom 45%',
+              invalidateOnRefresh: true, markers: false,
+              onUpdate: syncSelection
             });
-            trigger = ScrollTrigger.create({ trigger: section, animation,
-              start: () => `top ${Math.round(pinTop)}`,
-              end: () => `+=${Math.min(1800, window.innerHeight * 2.2)}`,
-              pin: true, scrub: 0.35, anticipatePin: 1, invalidateOnRefresh: true, markers: false
-            });
-            animation.progress(trigger.progress);
+            syncSelection(trigger);
           });
         }
         setup();
         const resize = () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(() => { setup(); ScrollTrigger.refresh(); }, 200); };
         window.addEventListener('resize', resize);
+        // Recompute the reserved height when font metrics change.
+        let disposed = false;
+        document.fonts?.ready.then(() => { if (!disposed) resize(); });
         return () => {
+          disposed = true;
           clearTimeout(resizeTimer);
           window.removeEventListener('resize', resize);
-          pinContext.revert();
-          pinned = false;
+          scrollContext.revert();
+          if (scrollTrack) { scrollTrack.replaceWith(section); scrollTrack = null; }
           trigger = null;
           section.style.removeProperty('height');
           lineState.index = active;
@@ -176,6 +188,9 @@
       });
     }
     syncReducedMotion();
+    // The unpinned/mobile timeline also needs its line updated after reflow.
+    window.addEventListener('resize', renderLine, { signal: events.signal });
+    document.fonts?.ready.then(() => { if (!events.signal.aborted) renderLine(); });
     reduced.addEventListener('change', syncReducedMotion, { signal: events.signal });
     dispose = () => {
       events.abort();
