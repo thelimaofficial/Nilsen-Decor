@@ -18,17 +18,16 @@
           yPercent: 100, opacity: 0, duration: 0.55, stagger: 0.07, ease: 'power4.out'
         }, at);
       }
-      function initHeaderAnimation(timeline) {
-        // Animate the inner box, preserving the header's CSS centering transform.
+      function initHeaderScroll() {
         const header = document.querySelector('.site-header');
-        timeline.from('.site-header__inner', { opacity: 0, y: -10, duration: 0.45 });
+        if (!header) return;
         ScrollTrigger.create({ start: 24, end: 'max', markers: false,
           onToggle: self => header.classList.toggle('header--scrolled', self.isActive)
         });
       }
       function initHeroAnimation() {
         const timeline = gsap.timeline({ defaults: { ease: 'power3.out', duration: 0.45 } }).timeScale(1.5);
-        initHeaderAnimation(timeline);
+        initHeaderScroll();
         title(timeline, '.hero', 0.35);
         timeline.from('.hero__text', { opacity: 0, y: 20 }, 1.25)
           .from('.hero__buttons .btn', { opacity: 0, y: 15, stagger: 0.1 }, 1.55)
@@ -46,9 +45,6 @@
             }
           }, 2);
         });
-        // The diagonal clip stays on the parent; the reveal only clips its image.
-        timeline.fromTo('.hero__media img', { clipPath: 'inset(0 0 0 100%)' },
-          { clipPath: 'inset(0 0 0 0%)', duration: 0.9, clearProps: 'clipPath' }, 1.85);
         if (window.scrollY > 80 || location.hash) timeline.progress(1);
       }
       function initAboutAnimation() {
@@ -57,9 +53,6 @@
         timeline.from('.about__content p, .about__content .btn', { opacity: 0, y: 20, stagger: 0.1 }, 0.3)
           .from('.about__photo', { opacity: 0, duration: 0.55 }, 0.2)
           .from('.quote-card', { opacity: 0, y: 12 }, 0.45);
-      }
-      function initValuesAnimation() {
-        reveal('.values').from('.value-card', { opacity: 0, y: 16, stagger: 0.07 });
       }
       function initProjectsAnimation() {
         title(reveal('.projects__header'), '.projects');
@@ -82,7 +75,6 @@
       title(servicesIntro, '.services__intro');
       servicesIntro.from('.services__intro p, .services__intro .btn', { opacity: 0, y: 15, stagger: 0.1 }, 0.4);
       initAboutAnimation();
-      initValuesAnimation();
       initProjectsAnimation();
       initTestimonialsAnimation();
       initCTAAnimation();

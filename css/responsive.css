@@ -714,6 +714,16 @@
   }
 }
 
+/* Center services in the space below the desktop header while pinned. */
+@media (min-width: 901px) {
+  .services {
+    display: flex;
+    align-items: center;
+    min-height: calc(100svh - 8.1vw - 12px);
+    padding-block: clamp(16px, 1.25vw, 24px);
+  }
+}
+
 /* Leave room for the fixed header when following section links. */
 .section,
 #conteudo,

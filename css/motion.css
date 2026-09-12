@@ -1,12 +1,19 @@
 /* Motion-only overrides. The static composition remains the fallback. */
+/* Position measurements must not animate the temporary scroll restoration. */
+html.is-refreshing-motion { scroll-behavior: auto !important; }
 /* Clip sideways overflow without creating a scroll container that blocks sticky. */
 @supports (overflow: clip) {
   body { overflow-x: clip; }
 }
 .services-scroll-track { position: relative; }
-.services--interactive .service-item { cursor: pointer; }
+.services-scroll-track > .services {
+  position: sticky;
+  top: var(--services-sticky-top);
+}
+.services--interactive .service-item { cursor: pointer; user-select: none; }
 .services--interactive .service-item:focus-visible { outline: 2px solid var(--color-yellow); outline-offset: 4px; }
-.services--interactive .service-item__dot.is-passed { background: var(--color-yellow); }
+.services--interactive .service-item__dot.is-passed,
+.services--interactive .service-item--active .service-item__dot { background: var(--color-yellow); }
 .services--interactive .service-item--passed .service-item__number { color: var(--color-yellow); }
 .services--reduced .service-item { cursor: default; }
 .services--reduced .service-item .service-item__description {
@@ -16,19 +23,66 @@
   opacity: 1;
   transform: none;
 }
-.services--interactive .services__axis-progress { height: 100%; background: var(--color-yellow); transform-origin: top; }
+.services--interactive .services__axis {
+  /* One painted track avoids a dark seam beneath a composited yellow layer. */
+  background: linear-gradient(to bottom,
+    var(--color-yellow) 0% var(--service-progress, 0%),
+    var(--color-black) var(--service-progress, 0%) 100%);
+}
+.services--interactive .services__axis-progress { display: none; }
 @media (prefers-reduced-motion: no-preference) {
+  /* Override the static reset only for the interactive services. */
+  .services--interactive .service-item {
+    transition: min-height 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+  .services--interactive .service-item__description {
+    transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.3s ease, transform 0.3s ease !important;
+  }
+  .services--interactive .service-item__divider {
+    transition: height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease !important;
+  }
+  .services--interactive .service-item__dot {
+    transition: background-color 0.3s ease, transform 0.3s ease !important;
+  }
+  .services--interactive .service-item__number,
+  .services--interactive .service-item__title {
+    transition: font-size 0.3s ease, color 0.3s ease !important;
+  }
+  @media (min-width: 901px) {
+    .services--interactive .service-item__body { position: relative; }
+    /* Row min-heights reserve the text space so reveals do not move the grid. */
+    .services--interactive .service-item .service-item__description {
+      display: block;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      max-width: 26vw;
+      max-height: none;
+      font-size: 1.2vw;
+      font-weight: 600;
+      line-height: 1.15;
+      opacity: 0;
+      transform: translateY(-8px);
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease !important;
+    }
+    .services--interactive .service-item--active .service-item__description {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+  }
   .header--scrolled .site-header__inner { box-shadow: var(--shadow-soft), inset 0 0 0 1.5px rgba(255,255,255,.17); }
   .site-footer a:hover { color: var(--color-yellow); }
   @media (hover: hover) and (pointer: fine) {
-    .btn { transition: scale .25s ease !important; }
-    .btn:hover { scale: 1.03; }
-    .btn svg { transition: translate .25s ease !important; }
-    .btn[href^="#"]:hover svg { translate: 4px -4px; }
-    .value-card { transition: translate .25s ease !important; }
-    .value-card:hover { translate: 0 -3px; }
-    .value-card__icon { transition: scale .3s ease !important; }
-    .value-card:hover .value-card__icon { scale: 1.05; }
+    /* GSAP's entrance transforms set inline scale:none; hover owns scale. */
+    .btn, .menu-toggle {
+      scale: 1 !important;
+      transition: scale .25s ease !important;
+    }
+    .btn:hover, .menu-toggle:hover { scale: 1.03 !important; }
     .project-card img, .project-card__reference { transition: scale .5s ease !important; }
     .project-card:hover img, .project-card:hover .project-card__reference { scale: 1.02; filter: none; }
     .project-card__content { transition: translate .5s ease !important; }
