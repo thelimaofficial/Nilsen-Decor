@@ -1,1 +1,37 @@
-/* Reservado para a página Serviços quando o layout completo for definido. */
+/* Readable service descriptions: no sticky track or interactive accordion. */
+.services-catalog {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 32px);
+}
+.service-detail {
+  padding: clamp(24px, 3vw, 48px);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  box-shadow: var(--shadow-card);
+  scroll-margin-top: calc(8vw + 24px);
+}
+.service-detail__number {
+  display: block;
+  margin-bottom: 16px;
+  color: var(--color-yellow);
+  font-size: clamp(28px, 3vw, 44px);
+  font-weight: 700;
+}
+.service-detail h2 {
+  margin: 0;
+  font-size: clamp(24px, 2.5vw, 36px);
+  text-transform: uppercase;
+}
+.service-detail p {
+  margin: 0;
+  color: var(--color-gray);
+  font-size: clamp(16px, 1.2vw, 20px);
+  line-height: 1.5;
+}
+@media (max-width: 900px) {
+  .service-detail { scroll-margin-top: 100px; }
+}
+@media (max-width: 600px) {
+  .services-catalog { grid-template-columns: 1fr; }
+}

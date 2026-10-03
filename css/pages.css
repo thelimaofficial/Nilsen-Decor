@@ -1,0 +1,33 @@
+/* Internal-page foundation, loaded only by the four internal documents. */
+.inner-page .page-main {
+  padding-top: calc(8.1vw + clamp(40px, 5vw, 80px));
+  padding-bottom: clamp(40px, 5vw, 80px);
+  min-height: 60vh;
+}
+.page-intro {
+  margin-bottom: clamp(32px, 4vw, 64px);
+}
+.page-intro p {
+  max-width: 680px;
+  margin: 0;
+  color: var(--color-gray);
+  font-size: clamp(16px, 1.23vw, 22px);
+  line-height: 1.5;
+}
+.page-intro .section-title {
+  font-size: clamp(32px, 3.52vw, 68px);
+}
+.page-section-title {
+  margin: 0 0 24px;
+  color: var(--color-black);
+  font-size: clamp(24px, 2.5vw, 40px);
+  font-weight: 700;
+  line-height: 1.18;
+  text-transform: uppercase;
+}
+.inner-page .final-cta {
+  padding-top: clamp(40px, 5.3vw, 80px);
+}
+@media (max-width: 900px) {
+  .inner-page .page-main { padding-top: 120px; }
+}

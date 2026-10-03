@@ -1,1 +1,32 @@
-/* Reservado para a página Contato quando o layout completo for definido. */
+/* Existing contact channels only; no form or simulated submission. */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(24px, 4vw, 64px);
+}
+.contact-panel {
+  padding: clamp(24px, 3vw, 48px);
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+.contact-panel address {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  font-style: normal;
+}
+.contact-panel p {
+  margin: 0 0 20px;
+  font-size: clamp(16px, 1.2vw, 20px);
+  line-height: 1.5;
+}
+.contact-panel address p { margin: 0; }
+.contact-panel a { overflow-wrap: anywhere; }
+.contact-panel p a { text-decoration: underline; text-underline-offset: 3px; }
+.contact-panel .btn { margin-top: 12px; }
+.contact-panel .btn span { white-space: normal; }
+@media (max-width: 600px) {
+  .contact-grid { grid-template-columns: 1fr; }
+}

@@ -1,1 +1,9 @@
-/* Reservado para a página Sobre quando o layout completo for definido. */
+/* Existing institutional content and photo composition, scoped to About. */
+.page-sobre .about { padding-top: 0; }
+.page-sobre .about__content p {
+  font-size: clamp(16px, 1.23vw, 22px);
+  line-height: 1.5;
+}
+.page-sobre .values { padding-top: clamp(40px, 5vw, 80px); }
+.page-sobre .value-card p,
+.page-sobre .value-card li { font-size: clamp(14px, 1vw, 18px); }

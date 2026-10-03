@@ -16,7 +16,19 @@
     if (restoreFocus) toggle.focus();
   }
 
-  toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+  toggle.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') !== 'true';
+    setOpen(open);
+    // Navigation precedes the toggle in the DOM. Start at its first link so
+    // keyboard users can move through it with Tab, without trapping focus.
+    if (open) menu.querySelector('a[href]')?.focus();
+  });
+  menu.addEventListener('keydown', (event) => {
+    if (event.key === 'Tab' && event.shiftKey && event.target === menu.querySelector('a[href]')) {
+      event.preventDefault();
+      setOpen(false, true);
+    }
+  });
   menu.addEventListener('click', (event) => {
     if (event.target.closest('a')) setOpen(false);
   });
@@ -29,7 +41,25 @@
     if (!header.contains(event.target)) setOpen(false);
   });
   header.addEventListener('focusout', (event) => {
+    // CSS can hide the focused control before the media-query event runs.
+    if (!event.relatedTarget && event.target.getClientRects().length === 0) {
+      if (!mobile.matches && event.target === toggle) {
+        menu.querySelector('[aria-current="page"]')?.focus();
+        return;
+      }
+      if (mobile.matches && menu.contains(event.target)) {
+        setOpen(false, true);
+        return;
+      }
+    }
     if (!header.contains(event.relatedTarget)) setOpen(false);
   });
-  mobile.addEventListener('change', () => setOpen(false));
+  mobile.addEventListener('change', () => {
+    const focusWillBeHidden = mobile.matches && menu.contains(document.activeElement);
+    const toggleHadFocus = document.activeElement === toggle;
+    setOpen(false, focusWillBeHidden);
+    if (!mobile.matches && toggleHadFocus) menu.querySelector('[aria-current="page"]')?.focus();
+  });
+  // Only collapse navigation once the enhancement is ready.
+  header.classList.add('has-menu');
 })();
