@@ -1,1 +1,24 @@
-.tmp-edge/
+# Local browser profiles and audit evidence
+/.tmp-edge/
+/.tmp-chrome/
+
+# Local caches, logs and crash dumps
+/.cache/
+/tmp/
+*.log
+*.dmp
+*.stackdump
+*.tmp
+*.dbtmp
+
+# Operating system metadata
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Local editor state (keep shared editor configuration trackable)
+/.idea/
+/.vscode/*.local.json
+*.swp
+*.swo
+*~
