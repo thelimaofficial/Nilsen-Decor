@@ -58,75 +58,68 @@
     </header>
 
     <main class="page-main" id="conteudo" tabindex="-1">
-      <div class="page-intro container">
-        <h1 class="section-title">Sobre</h1>
-        <span class="accent-line" aria-hidden="true"></span>
-
+      <div class="about-opening container">
+        <div>
+          <h1>Sobre</h1>
+          <span class="accent-line" aria-hidden="true"></span>
+        </div>
+        <p>A Nilsen Decorações em Gesso atua há mais de 30 anos no mercado de construção a seco, decorações em gesso e drywall.</p>
       </div>
-      <section class="about section" id="sobre">
-        <div class="about__grid container">
-          <div class="section-intro about__content">
-            <h2 class="section-title title-mask">
-              <span class="title-mask__line"><span>Mais de 30 anos</span></span>
-              <span class="title-mask__line"><span>Transformando</span></span>
-              <span class="title-mask__line title-mask__line--accent"><span>Ambientes</span></span>
-            </h2>
-            <span class="accent-line" aria-hidden="true"></span>
-            <p>
-              A Nilsen Decorações em Gesso atua há mais de 30 anos no mercado de construção a seco, decorações em gesso
-              e drywall. Com excelência no nicho de alto padrão residencial e comercial, a empresa une técnica, design e
-              acabamento impecável em cada projeto.
-            </p>
-          </div>
 
-          <div class="about__media">
-            <div class="about__photo"><svg viewBox="895 1952 825 625" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Residência com varanda, forro de madeira e piscina"><image href="assets/images/layout-reference.png" width="2097" height="5394" /></svg></div>
-            <article class="quote-card">
-              <span class="quote-card__mark" aria-hidden="true">“</span>
-              <h3>Do projeto ao acabamento.</h3>
-              <span class="accent-line" aria-hidden="true"></span>
-              <p>Cuidamos de cada detalhe para que o projeto se torne um ambiente único e sofisticado.</p>
-            </article>
+      <section class="about-story container" id="sobre" aria-labelledby="sobre-titulo">
+        <div class="about-story__text">
+          <h2 id="sobre-titulo">Mais de 30 anos transformando <span>ambientes</span></h2>
+          <p>Com excelência no nicho de alto padrão residencial e comercial, a empresa une técnica, design e acabamento impecável em cada projeto.</p>
+        </div>
+        <div class="about-story__media">
+          <div class="about-story__photo">
+            <svg viewBox="895 1952 825 625" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Residência com varanda, forro de madeira e piscina"><image href="assets/images/layout-reference.png" width="2097" height="5394" /></svg>
           </div>
+          <article class="about-note">
+            <span class="about-note__mark" aria-hidden="true">“</span>
+            <h3>Do projeto ao acabamento.</h3>
+            <span class="accent-line" aria-hidden="true"></span>
+            <p>Cuidamos de cada detalhe para que o projeto se torne um ambiente único e sofisticado.</p>
+          </article>
         </div>
       </section>
-      <section id="valores" class="values section" aria-labelledby="valores-titulo">
-        <h2 id="valores-titulo" class="visually-hidden">Missão, visão, valores e gestão de obra</h2>
-        <div class="values__grid container">
-          <article class="value-card">
-            <span class="value-card__icon"><img src="assets/icons/missao.png" alt="" width="48" height="48" loading="lazy" /></span>
+
+      <section class="about-principles about-editorial container" id="valores" aria-labelledby="valores-titulo">
+        <div class="about-editorial__heading">
+          <h2 id="valores-titulo">Missão, visão e valores</h2>
+          <span class="accent-line" aria-hidden="true"></span>
+        </div>
+        <div class="about-principles__list">
+          <article class="about-principle">
+            <span class="about-principle__number" aria-hidden="true">01</span>
             <h3>Missão</h3>
-            <span class="accent-line" aria-hidden="true"></span>
-            <p>
-              Transformar os sonhos dos nossos clientes e prestar um atendimento e um trabalho diferenciado com ótima
-              qualidade e custo benefício.
-            </p>
+            <p>Transformar os sonhos dos nossos clientes e prestar um atendimento e um trabalho diferenciado com ótima qualidade e custo benefício.</p>
           </article>
-          <article class="value-card">
-            <span class="value-card__icon"><img src="assets/icons/visao.png" alt="" width="48" height="48" loading="lazy" /></span>
+          <article class="about-principle">
+            <span class="about-principle__number" aria-hidden="true">02</span>
             <h3>Visão</h3>
-            <span class="accent-line" aria-hidden="true"></span>
             <p>Ser reconhecida como a melhor empresa de alto padrão de decorações de gesso e drywall.</p>
           </article>
-          <article class="value-card">
-            <span class="value-card__icon"><img src="assets/icons/valores.png" alt="" width="48" height="48" loading="lazy" /></span>
+          <article class="about-principle">
+            <span class="about-principle__number" aria-hidden="true">03</span>
             <h3>Valores</h3>
-            <span class="accent-line" aria-hidden="true"></span>
             <p>Amor, Pontualidade, Dedicação, Trabalho em Equipe, Excelência e Gratidão.</p>
           </article>
-          <article class="value-card">
-            <span class="value-card__icon"><img src="assets/icons/gestao.png" alt="" width="48" height="48" loading="lazy" /></span>
-            <h3>Gestão de obra</h3>
-            <span class="accent-line" aria-hidden="true"></span>
-            <ul>
-              <li>Qualidade de execução</li>
-              <li>Prazos e valores</li>
-              <li>Fornecedores e materiais</li>
-              <li>Acabamentos</li>
-              <li>Transporte</li>
-            </ul>
-          </article>
         </div>
+      </section>
+
+      <section class="about-management about-editorial container" aria-labelledby="gestao-titulo">
+        <div class="about-editorial__heading">
+          <h2 id="gestao-titulo">Gestão de obra</h2>
+          <span class="accent-line" aria-hidden="true"></span>
+        </div>
+        <ul class="about-management__list">
+          <li>Qualidade de execução</li>
+          <li>Prazos e valores</li>
+          <li>Fornecedores e materiais</li>
+          <li>Acabamentos</li>
+          <li>Transporte</li>
+        </ul>
       </section>
       <section class="final-cta section">
         <div class="final-cta__inner container">

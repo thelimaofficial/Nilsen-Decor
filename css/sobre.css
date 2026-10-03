@@ -1,9 +1,225 @@
-/* Existing institutional content and photo composition, scoped to About. */
-.page-sobre .about { padding-top: 0; }
-.page-sobre .about__content p {
-  font-size: clamp(16px, 1.23vw, 22px);
+/* About only: editorial layout over the existing shared visual system. */
+.page-sobre .page-main {
+  --about-space: clamp(56px, 6vw, 112px);
+  --about-rule: #d9d7d2;
+}
+
+.page-sobre .about-opening {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  align-items: center;
+  gap: clamp(32px, 6vw, 112px);
+  padding-bottom: clamp(28px, 3vw, 48px);
+  margin-bottom: clamp(40px, 4vw, 72px);
+  border-bottom: 1px solid var(--about-rule);
+}
+.page-sobre .about-opening h1 {
+  margin: 0;
+  color: var(--color-black);
+  font-size: clamp(56px, 6.4vw, 112px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+}
+.page-sobre .about-opening p {
+  max-width: 52ch;
+  margin: 0;
+  color: var(--color-gray);
+  font-size: clamp(18px, 1.45vw, 26px);
+  line-height: 1.55;
+}
+.page-sobre .about-opening .accent-line,
+.page-sobre .about-editorial .accent-line {
+  width: 44px;
+  height: 3px;
+  margin: 20px 0 0;
+}
+
+.page-sobre .about-story {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  align-items: start;
+  gap: clamp(32px, 6vw, 112px);
+}
+.page-sobre .about-story,
+.page-sobre .about-principles {
+  scroll-margin-top: calc(var(--header-height) + 34px);
+}
+.page-sobre .about-story__text {
+  padding-top: clamp(8px, 2vw, 32px);
+  min-width: 0;
+}
+.page-sobre .about-story h2 {
+  margin: 0 0 28px;
+  color: var(--color-black);
+  font-size: clamp(36px, 3.6vw, 66px);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+}
+/* Yellow is a graphic accent; the heading keeps strong text contrast. */
+.page-sobre .about-story h2 span {
+  text-decoration: underline;
+  text-decoration-color: var(--color-yellow);
+  text-decoration-thickness: 0.075em;
+  text-underline-offset: 0.13em;
+}
+.page-sobre .about-story__text p {
+  max-width: 38ch;
+  margin: 0;
+  color: var(--color-gray);
+  font-size: clamp(17px, 1.3vw, 23px);
+  line-height: 1.6;
+}
+.page-sobre .about-story__media {
+  display: grid;
+  min-width: 0;
+}
+.page-sobre .about-story__photo {
+  grid-area: 1 / 1;
+  align-self: start;
+  width: 82%;
+  overflow: hidden;
+  aspect-ratio: 825 / 625;
+  border-radius: clamp(20px, 2.2vw, 40px);
+}
+.page-sobre .about-story__photo svg { width: 100%; height: 100%; }
+
+/* The reference contains a baked-in note at its right edge. Cover it with
+   readable HTML, keeping the original SVG crop and reserving the note's height. */
+.page-sobre .about-note {
+  grid-area: 1 / 1;
+  align-self: start;
+  justify-self: end;
+  position: relative;
+  width: 48%;
+  min-height: 0;
+  margin: 21% 0 0;
+  padding: clamp(24px, 2vw, 36px);
+  border-radius: var(--radius-md);
+  background: var(--color-black);
+  color: var(--color-white);
+}
+.page-sobre .about-note__mark {
+  display: block;
+  height: 32px;
+  color: var(--color-yellow);
+  font-size: 52px;
+  font-weight: 800;
+  line-height: 1;
+}
+.page-sobre .about-note h3 {
+  max-width: 17ch;
+  margin: 8px 0 0;
+  font-size: clamp(23px, 2vw, 34px);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+.page-sobre .about-note .accent-line { width: 36px; height: 2px; margin: 18px 0; }
+.page-sobre .about-note p {
+  max-width: 36ch;
+  margin: 0;
+  font-size: clamp(16px, 1.1vw, 20px);
   line-height: 1.5;
 }
-.page-sobre .values { padding-top: clamp(40px, 5vw, 80px); }
-.page-sobre .value-card p,
-.page-sobre .value-card li { font-size: clamp(14px, 1vw, 18px); }
+
+.page-sobre .about-editorial {
+  display: grid;
+  grid-template-columns: 0.65fr 1.35fr;
+  gap: clamp(32px, 6vw, 112px);
+  margin-top: var(--about-space);
+}
+.page-sobre .about-editorial__heading h2 {
+  max-width: 12ch;
+  margin: 0;
+  color: var(--color-black);
+  font-size: clamp(30px, 2.8vw, 48px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+}
+.page-sobre .about-principle {
+  display: grid;
+  grid-template-columns: 36px minmax(100px, 0.6fr) 1.4fr;
+  align-items: baseline;
+  gap: 24px;
+  padding: 28px 0;
+  border-top: 1px solid var(--about-rule);
+}
+.page-sobre .about-principle:last-child { padding-bottom: 0; }
+.page-sobre .about-principle__number {
+  color: var(--color-gray);
+  font-size: 14px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.page-sobre .about-principle h3 {
+  margin: 0;
+  color: var(--color-black);
+  font-size: clamp(20px, 1.6vw, 28px);
+  font-weight: 700;
+  line-height: 1.2;
+}
+.page-sobre .about-principle p {
+  margin: 0;
+  color: var(--color-gray);
+  font-size: clamp(16px, 1.2vw, 21px);
+  line-height: 1.6;
+}
+.page-sobre .about-management {
+  padding-top: clamp(32px, 4vw, 64px);
+  border-top: 1px solid var(--about-rule);
+}
+.page-sobre .about-management__list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-content: start;
+  gap: 20px 32px;
+  padding-left: 20px;
+  list-style: square;
+}
+.page-sobre .about-management__list li {
+  padding-left: 4px;
+  color: var(--color-ink);
+  font-size: clamp(17px, 1.4vw, 24px);
+  line-height: 1.45;
+}
+.page-sobre .about-management__list li::marker { color: var(--color-yellow); }
+
+@media (max-width: 1100px) {
+  .page-sobre .about-principle { grid-template-columns: 32px 1fr; gap: 12px 20px; }
+  .page-sobre .about-principle p { grid-column: 2; }
+  .page-sobre .about-note { width: 56%; }
+}
+@media (max-width: 900px) {
+  .page-sobre .about-opening { grid-template-columns: 0.7fr 1.3fr; }
+  .page-sobre .about-story { grid-template-columns: 1fr; gap: 32px; }
+  .page-sobre .about-story__text {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 32px;
+    padding-top: 0;
+  }
+  .page-sobre .about-story h2 { margin-bottom: 0; }
+  .page-sobre .about-note { width: 48%; }
+  .page-sobre .about-editorial { grid-template-columns: 0.75fr 1.25fr; }
+  .page-sobre .about-management__list { grid-template-columns: 1fr; gap: 16px; }
+}
+@media (max-width: 600px) {
+  .page-sobre .about-opening { grid-template-columns: 1fr; gap: 24px; }
+  .page-sobre .about-opening h1 { font-size: clamp(56px, 16vw, 80px); }
+  .page-sobre .about-opening p { font-size: 17px; }
+  .page-sobre .about-story__text { display: block; }
+  .page-sobre .about-story h2 { margin-bottom: 24px; font-size: clamp(32px, 8.8vw, 48px); }
+  .page-sobre .about-story__text p { max-width: none; }
+  .page-sobre .about-story__photo { width: 90%; }
+  .page-sobre .about-note { width: 62%; margin-top: 23%; padding: 20px; }
+  .page-sobre .about-editorial { grid-template-columns: 1fr; gap: 28px; }
+  .page-sobre .about-editorial__heading h2 { max-width: 15ch; }
+  .page-sobre .about-principle { padding: 24px 0; }
+  .page-sobre .about-management__list { gap: 18px; }
+}
